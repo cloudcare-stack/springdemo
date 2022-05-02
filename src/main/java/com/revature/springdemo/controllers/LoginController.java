@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/login")
-    public String dummy(@RequestParam String name, ModelMap model){
-        model.put("name", name);
+    @RequestMapping("/login") //GET, POST
+    public String dummy(ModelMap model){
+        //model.put("name", name);
         return "login";
     }
 }
