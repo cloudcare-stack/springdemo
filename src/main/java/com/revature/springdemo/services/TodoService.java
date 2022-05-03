@@ -10,26 +10,40 @@ import java.util.List;
 
 @Service
 public class TodoService {
-
-    private static List<Todo> todos = new ArrayList<>();
+    private static List<Todo> todos = new ArrayList<Todo>();
     private static int todoCount = 3;
+    private static final String user = "Colin";
 
     static {
-        todos.add(new Todo(1, "colin", "Learn Spring MVC", new Date(),
+        todos.add(new Todo(1, user, "Learn Spring MVC", new Date(),
                 false));
-        todos.add(new Todo(2, "colin", "Learn Struts", new Date(), false));
-        todos.add(new Todo(3, "colin", "Learn Hibernate", new Date(),
+        todos.add(new Todo(2, user, "Learn Struts", new Date(), false));
+        todos.add(new Todo(3, user, "Learn Hibernate", new Date(),
                 false));
     }
 
     public List<Todo> retrieveTodos(String user) {
         List<Todo> filteredTodos = new ArrayList<Todo>();
         for (Todo todo : todos) {
-            if (todo.getUser().equals(user)) {
+            if (todo.getUser().equalsIgnoreCase(user)) {
                 filteredTodos.add(todo);
             }
         }
         return filteredTodos;
+    }
+
+    public Todo retrieveTodo(int id) {
+        for (Todo todo : todos) {
+            if (todo.getId()==id) {
+                return todo;
+            }
+        }
+        return null;
+    }
+
+    public void updateTodo(Todo todo){
+        deleteTodo(todo.getId());
+        todos.add(todo);
     }
 
     public void addTodo(String name, String desc, Date targetDate,
